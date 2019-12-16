@@ -15,7 +15,7 @@ var guilds = {};
 
 bot.on('ready', () => {
 	console.log(`Logged in as ${bot.user.tag}!`);
-    bot.user.setActivity('a KOS-MOS decepcionado', { type: 'WATCHING' })
+    bot.user.setActivity('a cazadores en el Smash', { type: 'WATCHING' })
 });
 
 
