@@ -1,0 +1,41 @@
+{
+  "name": "sebas",
+  "version": "0.0.5",
+  "description": "un bot para kekogeki",
+  "main": "index.js",
+  "engines": {
+    "node": "8.x",
+    "npm": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/synicalsyntax/discord.js-heroku.git"
+  },
+  "keywords": [
+    "heroku",
+    "discord.js"
+  ],
+  "author": "miguerubsk",
+  "license": "ISC",
+  "homepage": "https://github.com/synicalsyntax/discord.js-heroku#readme",
+  "dependencies": {
+    "bufferutil": "^3.0.3",
+    "discord.io": "^2.5.3",
+    "discord.js": "^11.3.2",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-binaries": "^3.2.2",
+    "node-gyp": "^3.6.2",
+    "opusscript": "0.0.6",
+    "uws": "^9.14.0",
+    "winser": "^1.0.3",
+    "ytdl-core": "^0.20.2"
+  },
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/synicalsyntax/discord.js-heroku/issues"
+  }
+}
