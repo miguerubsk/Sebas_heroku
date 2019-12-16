@@ -283,6 +283,9 @@ bot.on('message', function(message) {
         }
         switch(comando) {
             case prefix + "play":
+
+            	message.channel.send("A la espera de una biblioteca que sustituya a ffmpeg-binaries"); return;
+
                 if (message.member.voiceChannel) {
                     if (mess === (prefix + "play"))
                         message.reply("No escribiste el nombre de ninguna canción.");		
@@ -305,6 +308,9 @@ bot.on('message', function(message) {
                 break;   
 
             case prefix + "skip":
+
+            	message.channel.send("A la espera de una biblioteca que sustituya a ffmpeg-binaries"); return;
+
                 if(guilds[message.guild.id].queue[0] !== undefined) {
                     message.reply("La canción ha sido saltada!");
                     guilds[message.guild.id].dispatcher.end();
@@ -312,6 +318,9 @@ bot.on('message', function(message) {
                 break;
 
             case prefix + "cola":
+
+            	message.channel.send("A la espera de una biblioteca que sustituya a ffmpeg-binaries"); return;
+
                 var message2 = "```css\n";
                 for (var i = 0; i < guilds[message.guild.id].queueNames.length; i++) {
                     var temp = (i + 1) + ": " + (i === 0 ? "🔊 " : "") + guilds[message.guild.id].queueNames[i] + "\n";
@@ -328,6 +337,9 @@ bot.on('message', function(message) {
                 break;
 
             case prefix + "salir":
+
+            	message.channel.send("A la espera de una biblioteca que sustituya a ffmpeg-binaries"); return;
+
                 if(guilds[message.guild.id].voiceChannel !== null)
                     Salir(message);
                 break;
@@ -384,6 +396,9 @@ bot.on('message', function(message) {
                 break;
 
             case prefix + "pausa":
+
+            	message.channel.send("A la espera de una biblioteca que sustituya a ffmpeg-binaries"); return;
+
                 if(guilds[message.guild.id].isPlaying === true) {
                     message.reply("Has pausado la canción.");
                     guilds[message.guild.id].dispatcher.pause();
@@ -392,6 +407,9 @@ bot.on('message', function(message) {
                 break;
 
             case prefix +"resume":
+
+            	message.channel.send("A la espera de una biblioteca que sustituya a ffmpeg-binaries"); return;
+
                 if(guilds[message.guild.id].queue[0] !== undefined && guilds[message.guild.id].isPlaying === false) {
                     setTimeout(function() {
                         message.reply("La canción ha sido resumida.");
