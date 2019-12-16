@@ -158,35 +158,6 @@ bot.on('message', message => {
 });
 
 
-
-bot.on('message', message => {
-	
-	if (message.content === `${prefix}soy joto`) {
-		message.channel.send(`Prefijo: ${prefix}`);
-		message.channel.send(`hola: saludo al usuario`);
-		message.channel.send(`espia a <mención>: doy un reporte con la información disponible del usuario mencionado`);
-		message.channel.send(`user: doy un reporte con la inf disponiblesobre el usuario que llama al comamdo`);
-		message.channel.send(`server: aporto la informacion del servidor`);
-		message.channel.send(`play <youtube url>: me uno al canal de voz en el que este el usuario y reproduzco el audio del video`);
-		message.channel.send(`elimina a <mención>: baneo al usuario mencionado`);
-		message.channel.send(`mata a <mención>: expulso al usuario mencionado`);
-		message.channel.send(`Otros comandos:`);
-		message.channel.send(`ping`);
-		message.channel.send(`hola`);
-		message.channel.send(`cooperation`);
-		message.channel.send(`solaire`);
-		message.channel.send(`3`);
-		message.channel.send(`shinji`);
-		message.channel.send(`esto es un bucle   (peligroso)`);
-		message.channel.send(`Otro comando que no voy a decir`);
-	}
-			
-	
-});
-
-
-
-
 bot.on('message', message => {
   // Ignore messages that aren't from a guild
   if (!message.guild) return;
@@ -349,16 +320,34 @@ bot.on('message', function(message) {
 
             case prefix + "comandos":
                 message.channel.send(
+                	"Prefijo: _ \n"+
                     "📜 Lista de comandos:\n"+
                     "```xl\n"+
-                    "'_play' Reproducir una canción o añadirla a la cola.\n"+
-                    "'_pausa' Pausar la canción actual.\n"+
-                    "'_resume' Resumir la canción pausada.\n"+
-                    "'_cola' Ver lista de canciones que están en cola de reproducción.\n"+
-                    "'_skip' Saltar canción que se está reproduciendo.\n"+
-                    "'_salir' Sacar el bot del canal de voz.\n"+
-                    "'_servidores' Mostrar la cantidad de servidores que ha sido invitado el bot.\n"+
-                    "'_comandos' Lista de comandos."+
+                    	"'_hola' saludo al usuario\n"+
+                    	"'_espia a <mención>' doy un reporte con la información disponible del usuario mencionado.\n"+
+                    	"'_user' doy un reporte con la info disponible del usuario que llama al comamdo\n"+
+                    	"'_server' aporto la informacion del servidor\n"+
+                    	"'_elimina a <mención>' baneo al usuario mencionado\n"+
+                    	"'_mata a <mención>' expulso al usuario mencionado\n"+
+	                    "'_play' Reproducir una canción o añadirla a la cola.\n"+
+	                    "'_pausa' Pausar la canción actual.\n"+
+	                    "'_resume' Resumir la canción pausada.\n"+
+	                    "'_cola' Ver lista de canciones que están en cola de reproducción.\n"+
+	                    "'_skip' Saltar canción que se está reproduciendo.\n"+
+	                    "'_salir' Sacar el bot del canal de voz.\n"+
+	                    "'_servidores' Mostrar la cantidad de servidores que ha sido invitado el bot.\n"+
+	                    "'_comandos' Lista de comandos.\n"+
+                    "```"+
+                    "Otros comandos:\n"+
+                    "```xl\n"+
+                    	"'ping'\n"+
+                    	"'hola'\n"+
+                    	"'cooperation'\n"+
+                    	"'solaire'\n"+
+                    	"'3'\n"+
+                    	"'shinji'\n"+
+                    	"'esto es un bucle'  (peligroso)\n"+
+                    	"Comando sorpresa"
                     "```"
                 );
                 break;
