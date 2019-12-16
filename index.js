@@ -358,25 +358,8 @@ bot.on('message', function(message) {
                     "'_skip' Saltar canción que se está reproduciendo.\n"+
                     "'_salir' Sacar el bot del canal de voz.\n"+
                     "'_servidores' Mostrar la cantidad de servidores que ha sido invitado el bot.\n"+
-                    "'_comandos' Lista de comandos.\n"+
-			"'Prefijo' ${prefix}\n"+"'hola' saludo al usuario\n"+
-			"'espia a <mención>' doy un reporte con la información disponible del usuario mencionado\n"+
-			"'user' doy un reporte con la inf disponiblesobre el usuario que llama al comamdo\n"+
-			"'server' aporto la informacion del servidor\n"+
-			"'elimina a <mención>' baneo al usuario mencionado\n"+
-			"'mata a <mención>' expulso al usuario mencionado\n"
-                    "```"+
-			"Otros comandos:"+
-			"```xl\n"+
-			"'ping'\n"+
-			"'hola'\n"+
-			"'cooperation'\n"+
-			"'solaire'\n"+
-			"'3'\n"+
-			"'shinji'\n"+
-			"'esto es un bucle'  (peligroso)\n"+
-			"Comando sorpresa"+
-		     "```"
+                    "'_comandos' Lista de comandos."+
+                    "```"
                 );
                 break;
 
