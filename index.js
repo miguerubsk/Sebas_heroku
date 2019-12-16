@@ -367,6 +367,7 @@ bot.on('message', function(message) {
                     "'_comandos' Lista de comandos."+
                     "```"
                 );
+                message.channel.send("Los comandos de música no funcionan debido a que la depencia ffmpeg-binaries está obsoleta");
                 break;
 
             case prefix + "pausa":
