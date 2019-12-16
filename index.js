@@ -351,6 +351,12 @@ bot.on('message', function(message) {
                 message.channel.send(
                     "📜 Lista de comandos:\n"+
                     "```xl\n"+
+                    "'_hola' saludo al usuario\n"+
+                	"'_espia a <mención>' doy un reporte con la información disponible del usuario mencionado.\n"+
+                	"'_user' doy un reporte con la info disponible del usuario que llama al comamdo\n"+
+                	"'_server' aporto la informacion del servidor\n"+
+                	"'_elimina a <mención>' baneo al usuario mencionado\n"+
+                	"'_mata a <mención>' expulso al usuario mencionado\n"+
                     "'_play' Reproducir una canción o añadirla a la cola.\n"+
                     "'_pausa' Pausar la canción actual.\n"+
                     "'_resume' Resumir la canción pausada.\n"+
