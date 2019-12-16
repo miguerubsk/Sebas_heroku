@@ -265,7 +265,7 @@ bot.on('message', message => {
 }
 });
 
-client.on('message', function(message) {
+bot.on('message', function(message) {
     if(message.channel.type !== "dm") {
         const mess = message.content.toLowerCase();
         const comando = mess.split(" ")[0]; // Extrae el comando
@@ -334,13 +334,13 @@ client.on('message', function(message) {
 
             case prefix + "servidores":
                 var contar_servidores;
-                switch(client.guilds.size) {
+                switch(bot.guilds.size) {
                     case 1:
-                        contar_servidores = "He sido invitado a " + client.guilds.size + " servidor.";
+                        contar_servidores = "He sido invitado a " + bot.guilds.size + " servidor.";
                         message.channel.send(contar_servidores);
                         break;
                     default:
-                        contar_servidores = "Me han invitado a " + client.guilds.size + " servidores.";
+                        contar_servidores = "Me han invitado a " + bot.guilds.size + " servidores.";
                         message.channel.send(contar_servidores);
                         break;
                 }
@@ -387,18 +387,18 @@ client.on('message', function(message) {
         if(message.author.id !== botid){
             console.log("El bot ha recibido un mensaje privado ("+ message.channel.type +"): ");
             console.log(message.author.tag + ": " + mess);
-            client.fetchUser(ownerid).then((user) => {
+            bot.fetchUser(ownerid).then((user) => {
                 user.send(message.author.tag + ": " + mess); // Enviar mensaje privado al dueño del bot
             });
         }
     }
 });
 
-client.on('error', function() {
+bot.on('error', function() {
     console.error("Ha ocurrido un error");
 });
 
-client.on('resume', function() {
+bot.on('resume', function() {
     console.log("Estoy listo otra vez!");
 });
 
