@@ -202,7 +202,7 @@ bot.on('message', function(message) {
         switch(comando) {
         	case prefix + "bucle":
         		message.channel.send(`${prefix}bucle`); break;
-        		
+
         	case prefix + "3":
         		message.channel.send('http://i57.tinypic.com/16avcdw.jpg'); break;
 
@@ -249,11 +249,10 @@ bot.on('message', function(message) {
                     else {
                         const args = message.content.split(/(?:<|(?:>| ))+/).slice(1).join(" "); // Remover comando, espacios y <> del mensaje
                         if(isURL(args.toLowerCase())){  // Si la búsqueda contiene un link
-                            if(isSoundcloud(args)) // Si lee un link de soundcloud
-                            	message.channel.send("Soundcloud no soportado");
-                            	return;
+                            if(isSoundcloud(args)){ // Si lee un link de soundcloud
+                            	message.channel.send("Soundcloud no soportado"); break;
                                 Soundcloud(args, message); // Soundcloud
-                            else if (isYoutube(args)) // Si lee un link de youtube
+                            }else if (isYoutube(args)) // Si lee un link de youtube
                                 Youtube(args, message); // Youtube
                             else
                                 message.reply("No se encontro ningúna canción con ese link.");
