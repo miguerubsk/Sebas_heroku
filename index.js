@@ -349,6 +349,7 @@ bot.on('message', function(message) {
 
             case prefix + "comandos":
                 message.channel.send(
+                	"Prefijo: _\n"+
                     "📜 Lista de comandos:\n"+
                     "```xl\n"+
                     "'_hola' saludo al usuario\n"+
@@ -368,6 +369,18 @@ bot.on('message', function(message) {
                     "```"
                 );
                 message.channel.send("Los comandos de música no funcionan debido a que la depencia ffmpeg-binaries está obsoleta");
+                message.channel.send(
+                    "Otros comandos:\n"+
+                    "```xl\n"+
+                    "'_ping' ping del bot en ms\n"+
+                	"'_3'\n"+
+                	"'_cooperation'\n"+
+                	"'_solaire'\n"+
+                	"'_shinji'\n"+
+                	"'esto es un bucle' (No se recomienda usar)\n"+
+                    "Comando sorpresa\n"+
+                    "```"
+                );
                 break;
 
             case prefix + "pausa":
