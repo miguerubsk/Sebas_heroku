@@ -158,35 +158,6 @@ bot.on('message', message => {
 });
 
 
-
-bot.on('message', message => {
-	
-	if (message.content === `${prefix}soy joto`) {
-		message.channel.send(`Prefijo: ${prefix}`);
-		message.channel.send(`hola: saludo al usuario`);
-		message.channel.send(`espia a <mención>: doy un reporte con la información disponible del usuario mencionado`);
-		message.channel.send(`user: doy un reporte con la inf disponiblesobre el usuario que llama al comamdo`);
-		message.channel.send(`server: aporto la informacion del servidor`);
-		message.channel.send(`play <youtube url>: me uno al canal de voz en el que este el usuario y reproduzco el audio del video`);
-		message.channel.send(`elimina a <mención>: baneo al usuario mencionado`);
-		message.channel.send(`mata a <mención>: expulso al usuario mencionado`);
-		message.channel.send(`Otros comandos:`);
-		message.channel.send(`ping`);
-		message.channel.send(`hola`);
-		message.channel.send(`cooperation`);
-		message.channel.send(`solaire`);
-		message.channel.send(`3`);
-		message.channel.send(`shinji`);
-		message.channel.send(`esto es un bucle   (peligroso)`);
-		message.channel.send(`Otro comando que no voy a decir`);
-	}
-			
-	
-});
-
-
-
-
 bot.on('message', message => {
   // Ignore messages that aren't from a guild
   if (!message.guild) return;
@@ -198,7 +169,7 @@ bot.on('message', message => {
     const user = message.mentions.users.first();
     // If we have a user mentioned
     if (user) {
-    	if (user.id == '271756529303158784'){
+    	if (user.id == ownerid){
     		message.channel.send('Jamás diré nada sobre este usuario');
 		}else{
 			message.channel.send(`Aqui esta el reporte del espionaje <@${message.author.id}>-sama`);
