@@ -427,6 +427,28 @@ async function buscar_video(args, message) {
     }
 }
 
+function reproducirYoutube(id, message){
+    fetchVideoInfo(id, function(err, videoInfo) {
+        if (err)
+            message.reply("No se encontro ningúna canción con ese link.");
+        else {
+            var titulo = videoInfo.title;
+            var duracion = tiempo(videoInfo.duration);
+            var url = videoInfo.url;
+            if(guilds[message.guild.id].queue.length > 0) { // Si la cola es mayor a 0
+                if(guilds[message.guild.id].queue.indexOf(id) > -1) // Si ya existe el id de la canción
+                    message.reply("Esa canción ya está en cola, espera a que acabe para escucharla otra vez.");
+                else
+                    agregar_a_cola(message, id, url, titulo, duracion); // Agrgar canción a la cola
+            }
+            else { // Si no hay canciones
+                Push(message, id, url, titulo, duracion); // Push canción
+                playMusic(message, id, url, titulo, duracion); // Reproducir canción
+            }
+        }
+    });
+}
+
 function playMusic(message, id, url) {
     var stream;
     if(isYoutube(url))
