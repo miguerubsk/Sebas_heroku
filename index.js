@@ -320,8 +320,7 @@ bot.on('message', function(message) {
 
             case prefix + "comandos":
                 message.channel.send(
-                	"Prefijo: _ \n"+
-                    "📜 Lista de comandos:\n"+
+                    "Prefijo: _ \n📜 Lista de comandos:\n"+
                     "```xl\n"+
                     	"'_hola' saludo al usuario\n"+
                     	"'_espia a <mención>' doy un reporte con la información disponible del usuario mencionado.\n"+
@@ -337,8 +336,10 @@ bot.on('message', function(message) {
 	                    "'_salir' Sacar el bot del canal de voz.\n"+
 	                    "'_servidores' Mostrar la cantidad de servidores que ha sido invitado el bot.\n"+
 	                    "'_comandos' Lista de comandos.\n"+
-                    "```"+
-                    "Otros comandos:\n"+
+                    "```"
+                );
+                message.channel.send(
+                	"Otros comandos:\n"+
                     "```xl\n"+
                     	"'ping'\n"+
                     	"'hola'\n"+
@@ -349,7 +350,9 @@ bot.on('message', function(message) {
                     	"'esto es un bucle'  (peligroso)\n"+
                     	"Comando sorpresa"
                     "```"
-                );
+               	);
+                    
+                
                 break;
 
             case prefix + "pausa":
