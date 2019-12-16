@@ -15,7 +15,7 @@ var guilds = {};
 
 bot.on('ready', () => {
 	console.log(`Logged in as ${bot.user.tag}!`);
-    bot.user.setActivity('al Señor Poronga aniqular Baharut', { type: 'WATCHING' })
+    bot.user.setActivity('a KOS-MOS decepcionado', { type: 'WATCHING' })
 });
 
 
@@ -169,7 +169,7 @@ bot.on('message', message => {
 		message.channel.send(`server: aporto la informacion del servidor`);
 		message.channel.send(`play <youtube url>: me uno al canal de voz en el que este el usuario y reproduzco el audio del video`);
 		message.channel.send(`elimina a <mención>: baneo al usuario mencionado`);
-		message.channel.send(`mata a <mención>: espulso al usuario mencionado`);
+		message.channel.send(`mata a <mención>: expulso al usuario mencionado`);
 		message.channel.send(`Otros comandos:`);
 		message.channel.send(`ping`);
 		message.channel.send(`hola`);
@@ -358,8 +358,25 @@ bot.on('message', function(message) {
                     "'_skip' Saltar canción que se está reproduciendo.\n"+
                     "'_salir' Sacar el bot del canal de voz.\n"+
                     "'_servidores' Mostrar la cantidad de servidores que ha sido invitado el bot.\n"+
-                    "'_comandos' Lista de comandos."+
-                    "```"
+                    "'_comandos' Lista de comandos.\n"+
+			"'Prefijo' ${prefix}\n"+"'hola' saludo al usuario\n"+
+			"'espia a <mención>' doy un reporte con la información disponible del usuario mencionado\n"+
+			"'user' doy un reporte con la inf disponiblesobre el usuario que llama al comamdo\n"+
+			"'server' aporto la informacion del servidor\n"+
+			"'elimina a <mención>' baneo al usuario mencionado\n"+
+			"'mata a <mención>' expulso al usuario mencionado\n"
+                    "```"+
+			"Otros comandos:"+
+			"```xl\n"+
+			"'ping'\n"+
+			"'hola'\n"+
+			"'cooperation'\n"+
+			"'solaire'\n"+
+			"'3'\n"+
+			"'shinji'\n"+
+			"'esto es un bucle'  (peligroso)\n"+
+			"Comando sorpresa"+
+		     "```"
                 );
                 break;
 
