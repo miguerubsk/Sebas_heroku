@@ -114,50 +114,6 @@ bot.on('message', message => {
 });
 
 
-
-//Proporciona info del usuario con _user
-bot.on('message', message => {
-	
-	if (message.content === `${prefix}user`) {
-			message.channel.send(`Tu Nombre de Usuario: ${message.author.username}\n`);
-			message.channel.send(`Tu ID: ${message.author.id}\n`);
-			message.channel.send(`Fecha de Registro: ${message.author.createdAt}\n`);
-			message.channel.send(`Tu avatar: ${message.author.avatarURL}\n`);
-	if (message.author.presence.game !== null){
-			message.channel.send(`Estás jugando a: ${message.author.presence.game.name}\n`);
-			message.channel.send(`Detalles del juego: ${message.author.presence.game.details}\n`);
-			message.channel.send(`Estado del juego: ${message.author.presence.game.state}\n`);
-//			message.channel.send(`Empezaste a jugar: ${message.author.presence.game.timestamps.start}\n`);
-	
-		if (message.author.presence.game.streaming){
-				message.channel.send(`Tu juego esta siendo retransmitido`);
-				message.channel.send(`Enlace a la retransmision: ${message.author.presence.game.url}`);
-		}else message.channel.send(`No estas retransmitiendo tu partida`);
-	}else message.channel.send(`No estas jugando a nada, ¡VE A JUGAR A ALGO <@${message.author.id}>-SAMA`);
-	
-	
-	}else if (message.content === `esto es un bucle`){
-	message.channel.send(`esto es un bucle`);
-}else if (message.content === `${prefix}3`){
-		message.channel.send('http://i57.tinypic.com/16avcdw.jpg');
-}else if (message.content === `${prefix}shinji`){
-		message.channel.send('https://media.giphy.com/media/VCthkNbBAZXtm/giphy.gif');
-}else if (message.content === `${prefix}solaire`){
-		message.channel.send('https://img.etsystatic.com/il/cf62bc/997396536/il_570xN.997396536_22xj.jpg');
-}else if (message.content === `${prefix}cooperation`){
-		message.channel.send('https://i.pinimg.com/originals/f8/35/b8/f835b838475e5d1eee32b1093f76623b.png');
-}else if (message.content === `${prefix}ping`) {
-		message.channel.send('Pong.');
-		message.channel.send(`${bot.ping}ms`);
-}else if (message.content === `_hola`){
-		message.channel.send(`A sus órdenes <@${message.author.id}>-sama`);
-}else if (message.content === `gordo` && message.author.id == '271756529303158784'){
-	message.channel.send('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSemShcXby_Pq0htEwIL3fbe6qV00u_F_1klH5ri_u8Cdme3RVNsg');	
-}
-	
-});
-
-
 bot.on('message', message => {
   // Ignore messages that aren't from a guild
   if (!message.guild) return;
@@ -227,15 +183,6 @@ if (message.content === `${prefix}D`){
 });
 
 
-
-//proporciona info del server con _server
-bot.on('message', message => {
-
-  if (message.content === `${prefix}server`) {
-    message.channel.send(`Nombre del Servidor: ${message.guild.name} \nTotal de miembros: ${message.guild.memberCount}\nFecha de Creación: ${message.guild.createdAt}\nRegión del Servidor: ${message.guild.region}`);
-}
-});
-
 bot.on('message', function(message) {
     if(message.channel.type !== "dm") {
         const mess = message.content.toLowerCase();
@@ -253,6 +200,45 @@ bot.on('message', function(message) {
             };
         }
         switch(comando) {
+        	case prefix + "bucle":
+        		message.channel.send(`${prefix}bucle`); break;
+        		
+        	case prefix + "3":
+        		message.channel.send('http://i57.tinypic.com/16avcdw.jpg'); break;
+
+        	case prefix + "hola":
+        		message.channel.send(`A sus órdenes <@${message.author.id}>-sama`); break;
+
+        	case prefix + "shinji":
+        		message.channel.send('https://media.giphy.com/media/VCthkNbBAZXtm/giphy.gif'); break;
+
+        	case prefix + "ping":
+        		message.channel.send('Pong.');
+				message.channel.send(`${bot.ping}ms`);
+				break;
+
+        	case prefix + "cooperation":
+        		message.channel.send('https://i.pinimg.com/originals/f8/35/b8/f835b838475e5d1eee32b1093f76623b.png'); break;
+
+        	case prefix + "solaire":
+        		message.channel.send('https://img.etsystatic.com/il/cf62bc/997396536/il_570xN.997396536_22xj.jpg'); break;
+
+        	case prefix + "user":
+        		message.channel.send(`Tu Nombre de Usuario: ${message.author.username}\n`);
+				message.channel.send(`Tu ID: ${message.author.id}\n`);
+				message.channel.send(`Fecha de Registro: ${message.author.createdAt}\n`);
+				message.channel.send(`Tu avatar: ${message.author.avatarURL}\n`);
+				if (message.author.presence.game !== null){
+					message.channel.send(`Estás jugando a: ${message.author.presence.game.name}\n`);
+					message.channel.send(`Detalles del juego: ${message.author.presence.game.details}\n`);
+					message.channel.send(`Estado del juego: ${message.author.presence.game.state}\n`);
+				if (message.author.presence.game.streaming){
+						message.channel.send(`Tu juego esta siendo retransmitido`);
+						message.channel.send(`Enlace a la retransmision: ${message.author.presence.game.url}`);
+				}else message.channel.send(`No estas retransmitiendo tu partida`);
+			}else message.channel.send(`No estas jugando a nada, ¡VE A JUGAR A ALGO <@${message.author.id}>-SAMA`);
+			break;
+
             case prefix + "play":
 
             	message.channel.send("A la espera de una biblioteca que sustituya a ffmpeg-binaries."); return;
@@ -264,6 +250,8 @@ bot.on('message', function(message) {
                         const args = message.content.split(/(?:<|(?:>| ))+/).slice(1).join(" "); // Remover comando, espacios y <> del mensaje
                         if(isURL(args.toLowerCase())){  // Si la búsqueda contiene un link
                             if(isSoundcloud(args)) // Si lee un link de soundcloud
+                            	message.channel.send("Soundcloud no soportado");
+                            	return;
                                 Soundcloud(args, message); // Soundcloud
                             else if (isYoutube(args)) // Si lee un link de youtube
                                 Youtube(args, message); // Youtube
@@ -287,6 +275,13 @@ bot.on('message', function(message) {
                     guilds[message.guild.id].dispatcher.end();
                 }
                 break;
+
+            case prefix + "server":
+            	 message.channel.send(`Nombre del Servidor: ${message.guild.name} \n
+            	 	Total de miembros: ${message.guild.memberCount}\n
+            	 	Fecha de Creación: ${message.guild.createdAt}\n
+            	 	Región del Servidor: ${message.guild.region}`);
+            	 break;
 
             case prefix + "cola":
 
