@@ -252,13 +252,16 @@ bot.on('message', function(message) {
                             if(isSoundcloud(args)){ // Si lee un link de soundcloud
                             	message.channel.send("Soundcloud no soportado"); break;
                                 Soundcloud(args, message); // Soundcloud
-                            }else if (isYoutube(args)) // Si lee un link de youtube
-                                Youtube(args, message); // Youtube
-                            else
+                            }else if (isYoutube(args)){ // Si lee un link de youtube
+                                Youtube(args, message);
+                            } // Youtube
+                            else{
                                 message.reply("No se encontro ningúna canción con ese link.");
+                            }
                         }
-                        else // Si no
+                        else{ // Si no
                             buscar_video(args, message); // Buscar video en el buscador de youtube
+                        }
                     }
                 }
                 else
