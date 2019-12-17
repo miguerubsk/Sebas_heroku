@@ -19,6 +19,7 @@ config.json
 .tmproj
 nbproject
 Thumbs.db
+/.idea/
 
 # Node modules
 /node_modules
@@ -82,3 +83,9 @@ jspm_packages
 .env
 Launch.bat
 ejemplo.js
+.idea/modules.xml
+.idea/misc.xml
+.idea/Sebas_heroku.iml
+.idea/vcs.xml
+package-lock.json
+.idea/dictionaries/Miguerubsk.xml
