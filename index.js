@@ -1,13 +1,14 @@
 const Discord = require('discord.js');
-const bot = new Discord.Client();
 const ytdl = require('ytdl-core');
 const request = require("request");
 const getYouTubeID = require("get-youtube-id");
 const fetchVideoInfo = require("youtube-info");
 
 const yt_api_key = process.env.yt_api_key;
+const bot = new Discord.Client();
 const botid = process.env.botid;
 const ownerid = process.env.ownerid;
+let prefix = process.env.PREFIX;
 var guilds = {};
 
  
@@ -16,101 +17,6 @@ var guilds = {};
 bot.on('ready', () => {
 	console.log(`Logged in as ${bot.user.tag}!`);
     bot.user.setActivity('a cazadores en el Smash', { type: 'WATCHING' })
-});
-
-
-let prefix = process.env.PREFIX;
-
-//Interctúa con el usuario de diferentes maneras
-bot.on('message', message => {
-  // Ignore messages that aren't from a guild
-  if (!message.guild) return;
-
-  // If the message content starts with "!kick"
-  if (message.content.startsWith(`${prefix}mata a`)) {
-    // Assuming we mention someone in the message, this will return the user
-    // Read more about mentions over at https://discord.js.org/#/docs/main/stable/class/MessageMentions
-    const user = message.mentions.users.first();
-    // If we have a user mentioned
-    if (user) {
-      // Now we get the member from the user
-      const member = message.guild.member(user);
-      // If the member is in the guild
-      if (member) {
-        /**
-         * Kick the member
-         * Make sure you run this on a member, not a user!
-         * There are big differences between a user and a member
-         */
-		 message.channel.send('https://i.redd.it/fv9z83qe1rn01.png')
-        member.kick('Optional reason that will display in the audit logs').then(() => {
-          // We let the message author know we were able to kick the person
-          message.channel.send(`He matado a <@${user.id}>, <@${message.author.id}>-sama`);
-        }).catch(err => {
-          // An error happened
-          // This is generally due to the bot not being able to kick the member,
-          // either due to missing permissions or role hierarchy
-          message.channel.send(`He sido incapaz de matar a <@${user.id}>, <@${message.author.id}>-sama, ¡ES DEMASIADO PODEROSO!`);
-//		  message.channel.send('https://vignette.wikia.nocookie.net/overlordmaruyama/images/3/35/Sebas_003.png/revision/latest?cb=20150804091323');
-          // Log the error
-          console.error(err);
-        });
-      } else {
-        // The mentioned user isn't in this guild
-        message.channel.send(`El usuario no está en este servidor, <@${message.author.id}>-sama`);
-      }
-    // Otherwise, if no user was mentioned
-    } else {
-      message.channel.send(`No has mencionado al usuario que debo matar, <@${message.author.id}>-sama`);
-    }
-  }
-});
-
-
-bot.on('message', message => {
-  // Ignore messages that aren't from a guild
-  if (!message.guild) return;
-
-  // if the message content starts with "!ban"
-  if (message.content.startsWith(`${prefix}elimina a`)) {
-    // Assuming we mention someone in the message, this will return the user
-    // Read more about mentions over at https://discord.js.org/#/docs/main/stable/class/MessageMentions
-    const user = message.mentions.users.first();
-    // If we have a user mentioned
-    if (user) {
-      // Now we get the member from the user
-      const member = message.guild.member(user);
-      // If the member is in the guild
-      if (member) {
-        /**
-         * Ban the member
-         * Make sure you run this on a member, not a user!
-         * There are big differences between a user and a member
-         * Read more about what ban options there are over at
-         * https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=ban
-         */
-        member.ban({
-          reason: `${user.tag} se oponía a <@${message.author.id}>-sama`,
-        }).then(() => {
-          // We let the message author know we were able to ban the person
-          message.channel.send(`<@${user.id}> eliminado con éxito, <@${message.author.id}>-sama`);
-        }).catch(err => {
-          // An error happened
-          // This is generally due to the bot not being able to ban the member,
-          // either due to missing permissions or role hierarchy
-          message.reply(`He sido incapaz de eliminar a <@${user.id}>, <@${message.author.id}>-sama, ¡ES DEMASIADO PODEROSO!`);
-          // Log the error
-          console.error(err);
-        });
-      } else {
-        // The mentioned user isn't in this guild
-        message.channel.send(`El usuario no está en este servidor, <@${message.author.id}>-sama`);
-      }
-    } else {
-    // Otherwise, if no user was mentioned
-      message.channel.send(`No has mencionado al usuario que debo eliminar, <@${message.author.id}>-sama`);
-    }
-  }
 });
 
 
@@ -200,6 +106,12 @@ bot.on('message', function(message) {
             };
         }
         switch(comando) {
+            case prefix + "kick":
+                kickUser(message); break;
+
+            case prefix + "ban":
+                banUser(message); break;
+
         	case prefix + "bucle":
         		message.channel.send(`${prefix}bucle`); break;
 
@@ -336,8 +248,8 @@ bot.on('message', function(message) {
                 	"'_espia a <mención>' doy un reporte con la información disponible del usuario mencionado.\n"+
                 	"'_user' doy un reporte con la info disponible del usuario que llama al comamdo\n"+
                 	"'_server' aporto la informacion del servidor\n"+
-                	"'_elimina a <mención>' baneo al usuario mencionado\n"+
-                	"'_mata a <mención>' expulso al usuario mencionado\n"+
+                	"'_ban <mención>' baneo al usuario mencionado\n"+
+                	"'_kick <mención>' expulso al usuario mencionado\n"+
                     "'_play' Reproducir una canción o añadirla a la cola.\n"+
                     "'_pausa' Pausar la canción actual.\n"+
                     "'_resume' Resumir la canción pausada.\n"+
@@ -353,11 +265,10 @@ bot.on('message', function(message) {
                     "Otros comandos:\n"+
                     "```xl\n"+
                     "'_ping' ping del bot en ms\n"+
-                	"'_3'\n"+
                 	"'_cooperation'\n"+
                 	"'_solaire'\n"+
                 	"'_shinji'\n"+
-                	"'esto es un bucle' (No se recomienda usar)\n"+
+                	"'_bucle' (No se recomienda usar)\n"+
                     "Comando sorpresa\n"+
                     "```"
                 );
@@ -407,6 +318,89 @@ bot.on('error', function() {
 bot.on('resume', function() {
     console.log("Estoy listo otra vez!");
 });
+
+
+//Expulsar usuario
+function kickUser(message) {
+    // Assuming we mention someone in the message, this will return the user
+    // Read more about mentions over at https://discord.js.org/#/docs/main/stable/class/MessageMentions
+    const user = message.mentions.users.first();
+    // If we have a user mentioned
+    if (user) {
+        // Now we get the member from the user
+        const member = message.guild.member(user);
+        // If the member is in the guild
+        if (member) {
+            /**
+             * Kick the member
+             * Make sure you run this on a member, not a user!
+             * There are big differences between a user and a member
+             */
+            message.channel.send('https://i.redd.it/fv9z83qe1rn01.png')
+            member.kick('Optional reason that will display in the audit logs').then(() => {
+                // We let the message author know we were able to kick the person
+                message.channel.send(`He matado a <@${user.id}>, <@${message.author.id}>-sama`);
+            }).catch(err => {
+                // An error happened
+                // This is generally due to the bot not being able to kick the member,
+                // either due to missing permissions or role hierarchy
+                message.channel.send(`He sido incapaz de matar a <@${user.id}>, <@${message.author.id}>-sama, ¡ES DEMASIADO PODEROSO!`);
+                //		  message.channel.send('https://vignette.wikia.nocookie.net/overlordmaruyama/images/3/35/Sebas_003.png/revision/latest?cb=20150804091323');
+                // Log the error
+                console.error(err);
+            });
+        } else {
+            // The mentioned user isn't in this guild
+            message.channel.send(`El usuario no está en este servidor, <@${message.author.id}>-sama`);
+        }
+        // Otherwise, if no user was mentioned
+    } else {
+        message.channel.send(`No has mencionado al usuario que debo matar, <@${message.author.id}>-sama`);
+    }
+}
+
+
+//Banear usuario
+function banUser(message) {
+    // Assuming we mention someone in the message, this will return the user
+    // Read more about mentions over at https://discord.js.org/#/docs/main/stable/class/MessageMentions
+    const user = message.mentions.users.first();
+    // If we have a user mentioned
+    if (user) {
+        // Now we get the member from the user
+        const member = message.guild.member(user);
+        // If the member is in the guild
+        if (member) {
+            /**
+             * Ban the member
+             * Make sure you run this on a member, not a user!
+             * There are big differences between a user and a member
+             * Read more about what ban options there are over at
+             * https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=ban
+             */
+            member.ban({
+                reason: `${user.tag} se oponía a <@${message.author.id}>-sama`,
+            }).then(() => {
+                // We let the message author know we were able to ban the person
+                message.channel.send(`<@${user.id}> eliminado con éxito, <@${message.author.id}>-sama`);
+            }).catch(err => {
+                // An error happened
+                // This is generally due to the bot not being able to ban the member,
+                // either due to missing permissions or role hierarchy
+                message.reply(`He sido incapaz de eliminar a <@${user.id}>, <@${message.author.id}>-sama, ¡ES DEMASIADO PODEROSO!`);
+                // Log the error
+                console.error(err);
+            });
+        } else {
+            // The mentioned user isn't in this guild
+            message.channel.send(`El usuario no está en este servidor, <@${message.author.id}>-sama`);
+        }
+    } else {
+        // Otherwise, if no user was mentioned
+        message.channel.send(`No has mencionado al usuario que debo eliminar, <@${message.author.id}>-sama`);
+    }
+}
+
 
 // Youtube
 function Youtube(args, message) {
