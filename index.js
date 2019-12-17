@@ -298,10 +298,10 @@ bot.on('resume', function() {
 
 //Server info
 function serverInfo(message) {
-    message.channel.send(`Nombre del Servidor: ${message.guild.name} \n
-        Total de miembros: ${message.guild.memberCount}\n
-        Fecha de Creación: ${message.guild.createdAt}\n
-        Región del Servidor: ${message.guild.region}`);
+    message.channel.send(`Nombre del Servidor: ${message.guild.name}`);
+    message.channel.send(`Total de miembros: ${message.guild.memberCount}`);
+    message.channel.send(`Fecha de Creación: ${message.guild.createdAt}`);
+    message.channel.send(`Región del Servidor: ${message.guild.region}`);
 
 }
 
