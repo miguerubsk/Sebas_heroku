@@ -288,14 +288,6 @@ bot.on('message', function(message) {
     }
 });
 
-bot.on('error', function() {
-    console.error("Ha ocurrido un error");
-});
-
-bot.on('resume', function() {
-    console.log("Estoy listo otra vez!");
-});
-
 //Server info
 function serverInfo(message) {
     message.channel.send(`Nombre del Servidor: ${message.guild.name}`);
@@ -412,7 +404,6 @@ function kickUser(message) {
         message.channel.send(`No has mencionado al usuario que debo matar, <@${message.author.id}>-sama`);
     }
 }
-
 
 //Banear usuario
 function banUser(message) {
@@ -637,4 +628,12 @@ function isURL(args) {
 
 bot.login(process.env.TOKEN);
 
-console.log('Bot listo');
+console.log('Bot listo, hijo de tu puta madre estoy mamadísimo');
+
+bot.on('error', function() {
+    console.error("Ha ocurrido un error");
+});
+
+bot.on('resume', function() {
+    console.log("Estoy listo otra vez!");
+});
