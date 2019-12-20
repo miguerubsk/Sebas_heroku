@@ -42,10 +42,15 @@ bot.on('message', message => {
     // If we have a user mentioned
     if (user) {
     	if (user.id == ownerid){
-    		message.channel.send('Jamás diré nada sobre este usuario');
-            bot.fetchUser(ownerid).then((user) => {
-                user.send(message.author.tag + "Ha intentado espiarte"); // Enviar mensaje privado al dueño del bot
-            });
+    	    if (message.author.id !== ownerid){
+                message.channel.send('Jamás diré nada sobre este usuario');
+                bot.fetchUser(ownerid).then((user) => {
+                    user.send(message.author.tag + " ha intentado espiarte"); // Enviar mensaje privado al dueño del bot
+                });
+            }else{
+                message.channel.send('No puedes espiarte a ti mismo');
+            }
+
 		}else{
 			message.channel.send(`Aqui esta el reporte del espionaje <@${message.author.id}>-sama`);
 			if (user.id == '401038834508496896')
@@ -291,9 +296,9 @@ bot.on('message', function(message) {
         const mess = message.content;
         if(message.author.id !== botid && message.author.id !== ownerid){
             console.log("El bot ha recibido un mensaje privado ("+ message.channel.type +"): ");
-            message.channel.send("Si quieres hablar conmigo debes hacerlo desde un server al que pertenezca");
             console.log(message.author.tag + ": " + mess);
             bot.fetchUser(ownerid).then((user) => {
+                message.channel.send(message.author.tag + "No tengo permitido hablar por privado contigo, solo puedo hablar con " + user.id);
                 user.send("He recibido un mensaje privado de " + message.author.tag + ": " + mess); // Enviar mensaje privado al dueño del bot
             });
         }
