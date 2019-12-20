@@ -146,7 +146,7 @@ bot.on('message', function(message) {
         		UserInfo(message); break;
 
             case prefix + "play":
-                if(isSoundcloud(args)) message.channel.send("Soundcloud no soportado"); return;
+                if(isSoundcloud(args)){ message.channel.send("Soundcloud no soportado"); return; }
             	message.channel.send("A la espera de una biblioteca que sustituya a ffmpeg-binaries."); return;
 
                 if (message.member.voiceChannel) {
@@ -169,8 +169,7 @@ bot.on('message', function(message) {
                             buscar_video(args, message); // Buscar video en el buscador de youtube
                         }
                     }
-                }
-                else
+                }else
                     message.reply(" Necesitas unirte a un canal de voz!");
                 break;   
 
