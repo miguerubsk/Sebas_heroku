@@ -146,7 +146,7 @@ bot.on('message', function(message) {
         		UserInfo(message); break;
 
             case prefix + "play":
-
+                if(isSoundcloud(args)) message.channel.send("Soundcloud no soportado"); return;
             	message.channel.send("A la espera de una biblioteca que sustituya a ffmpeg-binaries."); return;
 
                 if (message.member.voiceChannel) {
