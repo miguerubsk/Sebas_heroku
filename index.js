@@ -19,6 +19,16 @@ bot.on('ready', () => {
     bot.user.setActivity('a cazadores en el Smash', { type: 'WATCHING' })
 });
 
+// Create an event listener for new guild members
+bot.on('guildMemberAdd', member => {
+    // Send the message to a designated channel on a server:
+    const channel = member.guild.channels.find(ch => ch.name === 'member-log');
+    // Do nothing if the channel wasn't found on this server
+    if (!channel) return;
+    // Send the message, mentioning the member
+    channel.send(`Bienvenido al infierno, ${member}`);
+});
+
 
 bot.on('message', message => {
   // Ignore messages that aren't from a guild
@@ -32,7 +42,15 @@ bot.on('message', message => {
     // If we have a user mentioned
     if (user) {
     	if (user.id == ownerid){
-    		message.channel.send('Jamás diré nada sobre este usuario');
+    	    if (message.author.id !== ownerid){
+                message.channel.send('Jamás diré nada sobre este usuario');
+                bot.fetchUser(ownerid).then((user) => {
+                    user.send(message.author.tag + " ha intentado espiarte"); // Enviar mensaje privado al dueño del bot
+                });
+            }else{
+                message.channel.send('No puedes espiarte a ti mismo');
+            }
+
 		}else{
 			message.channel.send(`Aqui esta el reporte del espionaje <@${message.author.id}>-sama`);
 			if (user.id == '401038834508496896')
@@ -80,15 +98,6 @@ bot.on('message', message => {
 });
 
 
-
-
-bot.on('message', message => {
-if (message.content === `${prefix}D`){
-	bot.destroy();
-}
-});
-
-
 bot.on('message', function(message) {
     if(message.channel.type !== "dm") {
         const mess = message.content.toLowerCase();
@@ -106,6 +115,9 @@ bot.on('message', function(message) {
             };
         }
         switch(comando) {
+            case prefix + "D":
+                bot.destroy(); break;
+
             case prefix + "kick":
                 kickUser(message); break;
 
@@ -136,23 +148,9 @@ bot.on('message', function(message) {
         		message.channel.send('https://img.etsystatic.com/il/cf62bc/997396536/il_570xN.997396536_22xj.jpg'); break;
 
         	case prefix + "user":
-        		message.channel.send(`Tu Nombre de Usuario: ${message.author.username}\n`);
-				message.channel.send(`Tu ID: ${message.author.id}\n`);
-				message.channel.send(`Fecha de Registro: ${message.author.createdAt}\n`);
-				message.channel.send(`Tu avatar: ${message.author.avatarURL}\n`);
-				if (message.author.presence.game !== null){
-					message.channel.send(`Estás jugando a: ${message.author.presence.game.name}\n`);
-					message.channel.send(`Detalles del juego: ${message.author.presence.game.details}\n`);
-					message.channel.send(`Estado del juego: ${message.author.presence.game.state}\n`);
-				if (message.author.presence.game.streaming){
-						message.channel.send(`Tu juego esta siendo retransmitido`);
-						message.channel.send(`Enlace a la retransmision: ${message.author.presence.game.url}`);
-				}else message.channel.send(`No estas retransmitiendo tu partida`);
-			}else message.channel.send(`No estas jugando a nada, ¡VE A JUGAR A ALGO <@${message.author.id}>-SAMA`);
-			break;
+        		UserInfo(message); break;
 
             case prefix + "play":
-
             	message.channel.send("A la espera de una biblioteca que sustituya a ffmpeg-binaries."); return;
 
                 if (message.member.voiceChannel) {
@@ -175,8 +173,7 @@ bot.on('message', function(message) {
                             buscar_video(args, message); // Buscar video en el buscador de youtube
                         }
                     }
-                }
-                else
+                }else
                     message.reply(" Necesitas unirte a un canal de voz!");
                 break;   
 
@@ -191,11 +188,7 @@ bot.on('message', function(message) {
                 break;
 
             case prefix + "server":
-            	 message.channel.send(`Nombre del Servidor: ${message.guild.name} \n
-            	 	Total de miembros: ${message.guild.memberCount}\n
-            	 	Fecha de Creación: ${message.guild.createdAt}\n
-            	 	Región del Servidor: ${message.guild.region}`);
-            	 break;
+            	 serverInfo(message); break;
 
             case prefix + "cola":
 
@@ -253,6 +246,7 @@ bot.on('message', function(message) {
                     "'_play' Reproducir una canción o añadirla a la cola.\n"+
                     "'_pausa' Pausar la canción actual.\n"+
                     "'_resume' Resumir la canción pausada.\n"+
+
                     "'_cola' Ver lista de canciones que están en cola de reproducción.\n"+
                     "'_skip' Saltar canción que se está reproduciendo.\n"+
                     "'_salir' Sacar el bot del canal de voz.\n"+
@@ -298,27 +292,96 @@ bot.on('message', function(message) {
                 }
                 break;
         }
-    }
-    else { // Si el bot recibe un mensaje directo
+    }else { // Si el bot recibe un mensaje directo
         const mess = message.content;
         if(message.author.id !== botid && message.author.id !== ownerid){
             console.log("El bot ha recibido un mensaje privado ("+ message.channel.type +"): ");
             console.log(message.author.tag + ": " + mess);
             bot.fetchUser(ownerid).then((user) => {
-                user.send(message.author.tag + ": " + mess); // Enviar mensaje privado al dueño del bot
+                message.channel.send(message.author.tag + "No tengo permitido hablar por privado contigo, solo puedo hablar con " + user.id);
+                user.send("He recibido un mensaje privado de " + message.author.tag + ": " + mess); // Enviar mensaje privado al dueño del bot
             });
         }
     }
 });
 
-bot.on('error', function() {
-    console.error("Ha ocurrido un error");
-});
+//Server info
+function serverInfo(message) {
+    message.channel.send(`Nombre del Servidor: ${message.guild.name}`);
+    message.channel.send(`Total de miembros: ${message.guild.memberCount}`);
+    message.channel.send(`Fecha de Creación: ${message.guild.createdAt}`);
+    message.channel.send(`Región del Servidor: ${message.guild.region}`);
 
-bot.on('resume', function() {
-    console.log("Estoy listo otra vez!");
-});
+}
 
+//Espiar usuario
+function spy(message) {
+    const user = message.mentions.users.first();
+    // If we have a user mentioned
+    if (user) {
+        if (user.id == ownerid){
+            message.channel.send('Jamás diré nada sobre este usuario');
+        }else{
+            message.channel.send(`Aqui esta el reporte del espionaje <@${message.author.id}>-sama`);
+            if (user.id == '401038834508496896')
+                message.channel.send(`Este usuario es un payaso\n`);
+            if (user.id == '382936913721556994')
+                message.channel.send('Este usuario es JOTO, porque no sabe jugar a dark souls');
+            if (user.id == '631193439421202446')
+                message.channel.send('A esta usuaria le gusta hacer cosplay de Megumin y Assasins Creed');
+            if (user.presence.status == 'online')
+                message.channel.send(`El usuario esta online\n`);
+            if (user.presence.status == 'offline')
+                message.channel.send(`El usuario esta offline\n`);
+            if (user.presence.status == 'idle')
+                message.channel.send(`El usuario esta AFK\n`);
+            if (user.presence.status == 'dnd')
+                message.channel.send(`El usuario no quiere ser molestado\n`);
+            if (user.bot)
+                message.channel.send(`El usuario es un bot\n`);
+            else
+                message.channel.send(`El usuario no es un bot\n`);
+
+
+            message.channel.send(`Nombre de Usuario: ${user.username}\n`);
+            message.channel.send(`ID: ${user.id}\n`);
+            message.channel.send(`Fecha de Registro: ${user.createdAt}\n`);
+            if (user.lastMessage == null)
+                message.channel.send('No ha hablado por este canal');
+            else
+                message.channel.send(`Ultimo mensaje del usuario del usuario: ${user.lastMessage}`);
+            message.channel.send(`Avatar: ${user.avatarURL}\n`);
+            if (user.presence.game !== null){
+                message.channel.send(`Está jugando a: ${user.presence.game.name}\n`);
+                message.channel.send(`Detalles del juego: ${user.presence.game.details}\n`);
+                message.channel.send(`Estado del juego: ${user.presence.game.state}\n`);
+
+
+                if (user.presence.game.streaming){
+                    message.channel.send(`El juego esta siendo retransmitido`);
+                    message.channel.send(`Enlace a la retransmision: ${user.presence.game.url}`);
+                }else message.channel.send(`No esta retransmitiendo nada`);
+            }else message.channel.send(`No esta jugando a nada`);
+        }
+    }
+}
+
+//Iformacion del usuario
+function UserInfo(message) {
+    message.channel.send(`Tu Nombre de Usuario: ${message.author.username}\n`);
+    message.channel.send(`Tu ID: ${message.author.id}\n`);
+    message.channel.send(`Fecha de Registro: ${message.author.createdAt}\n`);
+    message.channel.send(`Tu avatar: ${message.author.avatarURL}\n`);
+    if (message.author.presence.game !== null){
+        message.channel.send(`Estás jugando a: ${message.author.presence.game.name}\n`);
+        message.channel.send(`Detalles del juego: ${message.author.presence.game.details}\n`);
+        message.channel.send(`Estado del juego: ${message.author.presence.game.state}\n`);
+        if (message.author.presence.game.streaming){
+            message.channel.send(`Tu juego esta siendo retransmitido`);
+            message.channel.send(`Enlace a la retransmision: ${message.author.presence.game.url}`);
+        }else message.channel.send(`No estas retransmitiendo tu partida`);
+    }else message.channel.send(`No estas jugando a nada, ¡VE A JUGAR A ALGO <@${message.author.id}>-SAMA`);
+}
 
 //Expulsar usuario
 function kickUser(message) {
@@ -358,7 +421,6 @@ function kickUser(message) {
         message.channel.send(`No has mencionado al usuario que debo matar, <@${message.author.id}>-sama`);
     }
 }
-
 
 //Banear usuario
 function banUser(message) {
@@ -401,7 +463,6 @@ function banUser(message) {
     }
 }
 
-
 // Youtube
 function Youtube(args, message) {
     var id = getYouTubeID(args);
@@ -427,6 +488,7 @@ async function buscar_video(args, message) {
     }
 }
 
+
 function reproducirYoutube(id, message){
     fetchVideoInfo(id, function(err, videoInfo) {
         if (err)
@@ -449,6 +511,7 @@ function reproducirYoutube(id, message){
     });
 }
 
+
 function playMusic(message, id, url) {
     var stream;
     if(isYoutube(url))
@@ -457,6 +520,7 @@ function playMusic(message, id, url) {
         stream = "http://api.soundcloud.com/tracks/" + id + "/stream?consumer_key=" + sc_clientid; // Pasar stream de soundcloud
     play(stream, message); // Reproducir
 }
+
 
 function play(stream, message){
     // Variables de la canción actual
@@ -581,4 +645,12 @@ function isURL(args) {
 
 bot.login(process.env.TOKEN);
 
-console.log('Bot listo');
+console.log('Bot listo, hijo de tu puta madre estoy mamadísimo');
+
+bot.on('error', function() {
+    console.error("Ha ocurrido un error");
+});
+
+bot.on('resume', function() {
+    console.log("Estoy listo otra vez!");
+});
