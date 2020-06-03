@@ -52,46 +52,50 @@ bot.on('message', message => {
             }
 
 		}else{
-			message.channel.send(`Aqui esta el reporte del espionaje <@${message.author.id}>-sama`);
-			if (user.id == '401038834508496896')
-				message.channel.send(`Este usuario es un payaso\n`);
-			if (user.id == '382936913721556994')
-				message.channel.send('Este usuario es JOTO, porque no sabe jugar a dark souls');
-			if (user.id == '631193439421202446')
-				message.channel.send('A esta usuaria le gusta hacer cosplay de Megumin y Assasins Creed');
-			if (user.presence.status == 'online')
-				message.channel.send(`El usuario esta online\n`);
-			if (user.presence.status == 'offline')
-				message.channel.send(`El usuario esta offline\n`);
-			if (user.presence.status == 'idle')
-				message.channel.send(`El usuario esta AFK\n`);
-			if (user.presence.status == 'dnd')
-				message.channel.send(`El usuario no quiere ser molestado\n`);
-			if (user.bot)
-				message.channel.send(`El usuario es un bot\n`);
-			else
-				message.channel.send(`El usuario no es un bot\n`);
+			if(user.id == message.author.id){
+                message.channel.send('No puedes espiarte a ti mismo');
+            }else{
+                message.channel.send(`Aqui esta el reporte del espionaje <@${message.author.id}>-sama`);
+                if (user.id == '401038834508496896')
+                    message.channel.send(`Este usuario es un payaso\n`);
+                if (user.id == '382936913721556994')
+                    message.channel.send('Este usuario es JOTO, porque no sabe jugar a dark souls');
+                if (user.id == '631193439421202446')
+                    message.channel.send('A esta usuaria le gusta hacer cosplay de Megumin y Assasins Creed');
+                if (user.presence.status == 'online')
+                    message.channel.send(`El usuario esta online\n`);
+                if (user.presence.status == 'offline')
+                    message.channel.send(`El usuario esta offline\n`);
+                if (user.presence.status == 'idle')
+                    message.channel.send(`El usuario esta AFK\n`);
+                if (user.presence.status == 'dnd')
+                    message.channel.send(`El usuario no quiere ser molestado\n`);
+                if (user.bot)
+                    message.channel.send(`El usuario es un bot\n`);
+                else
+                    message.channel.send(`El usuario no es un bot\n`);
 
 
-			message.channel.send(`Nombre de Usuario: ${user.username}\n`);
-			message.channel.send(`ID: ${user.id}\n`);
-			message.channel.send(`Fecha de Registro: ${user.createdAt}\n`);
-			if (user.lastMessage == null)
-				message.channel.send('No ha hablado por este canal');
-			else
-				message.channel.send(`Ultimo mensaje del usuario del usuario: ${user.lastMessage}`);
-			message.channel.send(`Avatar: ${user.avatarURL}\n`);
-			if (user.presence.game !== null){
-				message.channel.send(`Está jugando a: ${user.presence.game.name}\n`);
-				message.channel.send(`Detalles del juego: ${user.presence.game.details}\n`);
-				message.channel.send(`Estado del juego: ${user.presence.game.state}\n`);
+                message.channel.send(`Nombre de Usuario: ${user.username}\n`);
+                message.channel.send(`ID: ${user.id}\n`);
+                message.channel.send(`Fecha de Registro: ${user.createdAt}\n`);
+                if (user.lastMessage == null)
+                    message.channel.send('No ha hablado por este canal');
+                else
+                    message.channel.send(`Ultimo mensaje del usuario del usuario: ${user.lastMessage}`);
+                message.channel.send(`Avatar: ${user.avatarURL}\n`);
+                if (user.presence.game !== null){
+                    message.channel.send(`Está jugando a: ${user.presence.game.name}\n`);
+                    message.channel.send(`Detalles del juego: ${user.presence.game.details}\n`);
+                    message.channel.send(`Estado del juego: ${user.presence.game.state}\n`);
 
 
-				if (user.presence.game.streaming){
-					message.channel.send(`El juego esta siendo retransmitido`);
-					message.channel.send(`Enlace a la retransmision: ${user.presence.game.url}`);
-				}else message.channel.send(`No esta retransmitiendo nada`);
-			}else message.channel.send(`No esta jugando a nada`);
+                    if (user.presence.game.streaming){
+                        message.channel.send(`El juego esta siendo retransmitido`);
+                        message.channel.send(`Enlace a la retransmision: ${user.presence.game.url}`);
+                    }else message.channel.send(`No esta retransmitiendo nada`);
+                }else message.channel.send(`No esta jugando a nada`);
+            }
 		}
 	}
   }
