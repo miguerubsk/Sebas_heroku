@@ -11,8 +11,6 @@ const ownerid = process.env.ownerid;
 let prefix = process.env.PREFIX;
 var guilds = {};
 
- 
-
 
 bot.on('ready', () => {
 	console.log(`Logged in as ${bot.user.tag}!`);
